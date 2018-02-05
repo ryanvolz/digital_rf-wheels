@@ -101,6 +101,9 @@ before_install:
 install:
     # Maybe get and clean and patch source
     - clean_code $REPO_DIR $BUILD_COMMIT
+    # prepare python source distribution
+    - source prepare.sh
+    - prepare_repo $REPO_DIR
     # build wheels
     - build_wheel $REPO_DIR/python/build $PLAT
     - ls wheelhouse/*
