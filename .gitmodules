@@ -1,0 +1,6 @@
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/matthew-brett/multibuild.git
+[submodule "digital_rf"]
+	path = digital_rf
+	url = https://github.com/MITHaystack/digital_rf.git

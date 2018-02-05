@@ -1,0 +1,116 @@
+env:
+    global:
+        - REPO_DIR=digital_rf
+        # commit to build
+        - BUILD_COMMIT=2.6.0a1
+        # pip dependencies to _build_ your project
+        - BUILD_DEPENDS="Cheetah numpy=1.8 pkgconfig"
+        # pip dependencies to _test_ your project.  Include any dependencies
+        # that you need, that are also specified in BUILD_DEPENDS, this will be
+        # a separate install.
+        - TEST_DEPENDS="dateutil h5py numpy packaging pandas pytz watchdog"
+        # default platform (typically overridden in matrix)
+        - PLAT=x86_64
+        # default unicode width (typically overridden in matrix)
+        - UNICODE_WIDTH=32
+        # Note: TWINE_USERNAME and TWINE_PASSWORD are set in Travis settings
+
+language: python
+# The travis Python version is unrelated to the version we build and test
+# with.  This is set with the MB_PYTHON_VERSION variable.
+python: 3.5
+sudo: required
+dist: trusty
+services: docker
+
+matrix:
+  exclude:
+    # Exclude the default Python 3.5 build
+    - python: 3.5
+  include:
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=2.7
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=2.7
+        - UNICODE_WIDTH=16
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=2.7
+        - PLAT=i686
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=2.7
+        - PLAT=i686
+        - UNICODE_WIDTH=16
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.3
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.3
+#        - PLAT=i686
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.4
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.4
+#        - PLAT=i686
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.5
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.5
+#        - PLAT=i686
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#        - PLAT=i686
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=2.7
+#    - os: osx
+#      language: generic
+#      env:
+#        - MB_PYTHON_VERSION=3.4
+#    - os: osx
+#      language: generic
+#      env:
+#        - MB_PYTHON_VERSION=3.5
+#    - os: osx
+#      language: generic
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#    - os: osx
+#      language: generic
+#      env:
+#        - MB_PYTHON_VERSION=pypy-5.7
+
+before_install:
+    - source multibuild/common_utils.sh
+    - source multibuild/travis_steps.sh
+    - before_install
+
+install:
+    # Maybe get and clean and patch source
+    - clean_code $REPO_DIR $BUILD_COMMIT
+    # build wheels
+    - build_wheel $REPO_DIR/python/build $PLAT
+    - ls wheelhouse/*
+
+script:
+    # run tests
+    - install_run $PLAT
+
+after_success:
+    # Upload wheels to Rackspace container
+    - python -m pip install twine
+    - python -m twine upload wheelhouse/*
+
