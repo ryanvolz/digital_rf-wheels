@@ -6,14 +6,17 @@ function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
     local wheelhouse=$(abspath ${WHEEL_SDIR:-wheelhouse})
+    if [ -z "$IS_OSX" ]; then
+        yum install -y cmake
+    else
+        brew install cmake
+    fi
     if [ -n "$BUILD_DEPENDS" ]; then
         pip install $(pip_opts) $BUILD_DEPENDS
     fi
-    mkdir digital_rf/python/build
+    mkdir -p digital_rf/python/build
     cd digital_rf/python/build
-    cmake ..
-    make digital_rf_sdist
-    cp dist/* ${wheelhouse}/
+    cmake .. && make digital_rf_sdist && cp dist/* ${wheelhouse}/
 }
 
 function build_wheel {
