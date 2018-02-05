@@ -6,8 +6,8 @@ function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
     local wheelhouse=$(abspath ${WHEEL_SDIR:-wheelhouse})
-    mkdir python/build
-    cd python/build
+    mkdir digital_rf/python/build
+    cd digital_rf/python/build
     cmake ..
     make digital_rf_sdist
     cp dist/* ${wheelhouse}/
