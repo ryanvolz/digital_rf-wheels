@@ -9,7 +9,7 @@ function prepare_source {
     pip install -r ${repo_dir}/python/dev_requirements.txt
     mkdir -p ${src_dir}
     pushd ${src_dir}
-    cmake ..
+    cmake $(relpath ${repo_dir}/python)
     popd
 }
 
