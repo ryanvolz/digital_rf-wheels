@@ -1,13 +1,15 @@
-function prepare_repo {
+function prepare_source {
     local repo_dir=${1:-$REPO_DIR}
+    local src_dir=${2:-src}
     if [ -z "$IS_OSX" ]; then
-        yum install -y cmake
+        sudo apt-get install cmake
     else
         brew install cmake
     fi
     pip install -r ${repo_dir}/python/dev_requirements.txt
-    mkdir -p ${repo_dir}/python/build
-    cd ${repo_dir}/python/build
+    mkdir -p ${src_dir}
+    pushd ${src_dir}
     cmake ..
+    popd
 }
 
