@@ -106,6 +106,7 @@ before_install:
 
 install:
     # fetch and unpack source package
+    - source config.sh
     - fetch_unpack_index $PROJECT_SPEC src
     # build wheels
     - build_wheel src
