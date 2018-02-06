@@ -2,7 +2,7 @@ env:
     global:
         - REPO_DIR=digital_rf
         # commit to build
-        - BUILD_COMMIT=2.6.0a1
+        - BUILD_COMMIT=2.6.0a2
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="Cheetah numpy==1.8.* pkgconfig"
         # pip dependencies to _test_ your project.  Include any dependencies

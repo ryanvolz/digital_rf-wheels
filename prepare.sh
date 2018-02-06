@@ -10,6 +10,7 @@ function prepare_source {
     mkdir -p ${src_dir}
     pushd ${src_dir}
     cmake ${repo_dir}/python
+    make digital_rf_sdist
     popd
 }
 
