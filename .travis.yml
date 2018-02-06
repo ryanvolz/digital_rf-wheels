@@ -8,7 +8,7 @@ env:
         # that you need, that are also specified in BUILD_DEPENDS, this will be
         # a separate install.
         - NP_TEST_DEP=1.7.1
-        - TEST_DEPENDS="dateutil h5py packaging pandas pytz watchdog"
+        - TEST_DEPENDS="python-dateutil h5py packaging pandas pytz watchdog"
         # default platform (typically overridden in matrix)
         - PLAT=x86_64
         # default unicode width (typically overridden in matrix)
