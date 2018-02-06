@@ -12,6 +12,8 @@ function fetch_unpack_index {
         && rm_mkdir arch_tmp \
         && cd arch_tmp \
         && untar $out_archive \
-        && rsync --delete -avh */ ..)
+        && rsync --remove-source-files -avh */ ..
+        && cd ..
+        && rm -rf arch_tmp)
 }
 
