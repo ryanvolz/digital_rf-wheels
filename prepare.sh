@@ -6,12 +6,12 @@ function fetch_unpack_index {
     local source_dir=${2:-src}
     rm_mkdir dl_tmp
     pip download $(pip_opts) --no-deps --no-binary :all: -d dl_tmp $project_spec
-    local out_archive=$(ls dl_tmp/*)
+    local out_archive=$(abspath $(ls dl_tmp/*))
     mkdir -p $source_dir
     (cd $source_dir \
         && rm_mkdir arch_tmp \
         && cd arch_tmp \
-        && untar ../$out_archive \
+        && untar $out_archive \
         && rsync --delete -avh * ..)
 }
 
