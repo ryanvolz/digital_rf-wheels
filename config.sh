@@ -23,6 +23,7 @@ function build_linux_wheel {
     if [ -z "$(readelf --dynamic $bad_lib | grep RUNPATH)" ]; then
         patchelf --set-rpath $(dirname $bad_lib) $bad_lib
     fi
+    export CFLAGS="$CFLAGS '-std=c99'"
     build_pip_wheel $@
 }
 
