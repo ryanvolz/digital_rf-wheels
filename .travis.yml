@@ -1,14 +1,13 @@
 env:
     global:
-        - PROJECT_SPEC="digital_rf==2.6.0a4"
+        - PROJECT_SPEC="digital_rf==2.6.0a5"
         # pip dependencies to _build_ your project
         - NP_BUILD_DEP=1.7.1
         - BUILD_DEPENDS="Cheetah pkgconfig"
-        # pip dependencies to _test_ your project.  Include any dependencies
-        # that you need, that are also specified in BUILD_DEPENDS, this will be
-        # a separate install.
+        # pip dependencies to _test_ your project, beyond the setup.py install
+        # dependencies and potentially including specific versions
         - NP_TEST_DEP=1.7.1
-        - TEST_DEPENDS="python-dateutil h5py packaging pandas pytz watchdog"
+        - TEST_DEPENDS=""
         # default platform (typically overridden in matrix)
         - PLAT=x86_64
         # default unicode width (typically overridden in matrix)
