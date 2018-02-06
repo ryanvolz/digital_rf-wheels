@@ -105,8 +105,6 @@ before_install:
     - before_install
 
 install:
-    # Maybe get and clean and patch source
-    - clean_code $REPO_DIR $BUILD_COMMIT
     # build wheels
     - build_index_wheel $PROJECT_SPEC
     - ls $WHEEL_SDIR/*
