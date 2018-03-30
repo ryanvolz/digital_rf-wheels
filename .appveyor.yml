@@ -92,11 +92,11 @@ test_script:
     - pytest
 
 artifacts:
-    - path: src\dist\*
+    - path: "src\\dist\\*"
 
 cache:
-    - %LOCALAPPDATA%\pip\Cache
-    - C:\hdf5
+    - "%LOCALAPPDATA%\\pip\\Cache"
+    - "C:\\hdf5"
 
 on_success:
     # Upload wheels to PyPI
