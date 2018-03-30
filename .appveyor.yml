@@ -18,25 +18,25 @@ environment:
       HDF5_VSVERSION: "9-64"
       HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
 
-    - PYTHON: "C:\\Python35"
-      HDF5_VSVERSION: "14"
-      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
-
-    - PYTHON: "C:\\Python35-x64"
-      HDF5_VSVERSION: "14-64"
-      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
-
-    - PYTHON: "C:\\Python36"
-      HDF5_VSVERSION: "14"
-      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
-      NP_BUILD_DEP: "numpy==1.12"
-      NP_TEST_DEP: "numpy==1.12"
-
-    - PYTHON: "C:\\Python36-x64"
-      HDF5_VSVERSION: "14-64"
-      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
-      NP_BUILD_DEP: "numpy==1.12"
-      NP_TEST_DEP: "numpy==1.12"
+    # - PYTHON: "C:\\Python35"
+    #   HDF5_VSVERSION: "14"
+    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    #
+    # - PYTHON: "C:\\Python35-x64"
+    #   HDF5_VSVERSION: "14-64"
+    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    #
+    # - PYTHON: "C:\\Python36"
+    #   HDF5_VSVERSION: "14"
+    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    #   NP_BUILD_DEP: "numpy==1.12"
+    #   NP_TEST_DEP: "numpy==1.12"
+    #
+    # - PYTHON: "C:\\Python36-x64"
+    #   HDF5_VSVERSION: "14-64"
+    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    #   NP_BUILD_DEP: "numpy==1.12"
+    #   NP_TEST_DEP: "numpy==1.12"
 
 
 matrix:
