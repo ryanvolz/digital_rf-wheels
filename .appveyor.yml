@@ -1,0 +1,104 @@
+environment:
+  global:
+    PROJECT_SPEC: "digital_rf==2.6.0b1"
+    PACKAGE_NAME: "digital_rf"
+    NP_BUILD_DEP: "numpy==1.10.4"
+    NP_TEST_DEP: "numpy==1.10.4"
+    OTHER_BUILD_DEP: "Cheetah pkgconfig setuptools"
+    OTHER_TEST_DEP: "pytest"
+    HDF5_VERSION: "1.8.17"
+    # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
+
+  matrix:
+    - PYTHON: "C:\\Python27"
+      HDF5_VSVERSION: "9"
+      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+
+    - PYTHON: "C:\\Python27-x64"
+      HDF5_VSVERSION: "9-64"
+      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+
+    - PYTHON: "C:\\Python35"
+      HDF5_VSVERSION: "14"
+      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+
+    - PYTHON: "C:\\Python35-x64"
+      HDF5_VSVERSION: "14-64"
+      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+
+    - PYTHON: "C:\\Python36"
+      HDF5_VSVERSION: "14"
+      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+      NP_BUILD_DEP: "numpy==1.12"
+      NP_TEST_DEP: "numpy==1.12"
+
+    - PYTHON: "C:\\Python36-x64"
+      HDF5_VSVERSION: "14-64"
+      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+      NP_BUILD_DEP: "numpy==1.12"
+      NP_TEST_DEP: "numpy==1.12"
+
+
+matrix:
+    fast_finish: true
+
+install:
+    # fetch and unpack python sources
+    - "pip download --no-deps --no-binary :all: -d dl_tmp %PROJECT_SPEC%"
+    - 7z x dl_tmp\* -so | 7z x -si -ttar -oarch_tmp
+    - mkdir src
+    - for /d %A in (arch_tmp\*) do robocopy "%A" src /MIR /NP
+
+    # Prepend Python to the PATH of this build (this cannot be
+    # done from inside the powershell script as it would require to restart
+    # the parent CMD process).
+    - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+
+    # make sure we have the newest package versions
+    - python -m pip install -U pip setuptools wheel
+
+    # Check that we have the expected version and architecture for Python
+    - python --version
+    - python -c "import struct; print(struct.calcsize('P') * 8)"
+
+    # clone h5py to get some useful build scripts
+    - git clone --depth 1 https://github.com/h5py/h5py.git h5py
+
+    # install hdf5
+    - py -3.5 -m pip install --upgrade pip setuptools wheel
+    - py -3.5 -m pip install requests
+    - py -3.5 h5py\ci\appveyor\get_hdf5.py
+
+build_script:
+    # Install the dependencies of the project.
+    - python -m pip install %NP_BUILD_DEP% %OTHER_BUILD_DEPENDS%
+    # Build wheel
+    - cd src
+    - set HDF5_ROOT=%HDF5_DIR%
+    - python setup.py bdist_wheel
+    - cd ..
+
+test_script:
+    # create test env
+    - virtualenv --python %PYTHON%\Python.exe test_env
+    - test_env\Scripts\activate.bat
+    - where python
+    - python -m pip install %NP_TEST_DEP% %OTHER_TEST_DEP%
+
+    # install from wheel
+    - python -m pip install --pre --no-index --find-links src\dist\ %PACKAGE_NAME%
+
+    # run the tests
+    - pytest
+
+artifacts:
+    - path: src\dist\*
+
+cache:
+    - %LOCALAPPDATA%\pip\Cache
+    - C:\hdf5
+
+on_success:
+    # Upload wheels to PyPI
+    - python -m pip install twine
+    - python -m twine upload src\dist\*
