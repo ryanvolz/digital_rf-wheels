@@ -3,11 +3,11 @@ env:
         - PROJECT_SPEC="digital_rf==2.6.0b1"
         # pip dependencies to _build_ your project
         - NP_BUILD_DEP=1.7.1
-        - BUILD_DEPENDS="Cheetah pkgconfig"
+        - BUILD_DEPENDS="pkgconfig setuptools wheel"
         # pip dependencies to _test_ your project, beyond the setup.py install
         # dependencies and potentially including specific versions
         - NP_TEST_DEP=1.7.1
-        - TEST_DEPENDS=""
+        - TEST_DEPENDS="pytest"
         # default platform (typically overridden in matrix)
         - PLAT=x86_64
         # default unicode width (typically overridden in matrix)

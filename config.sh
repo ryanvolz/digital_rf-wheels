@@ -70,7 +70,6 @@ function build_osx_wheel {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
-    python -c 'import digital_rf'
-    python -c 'import digital_rf._py_rf_write_hdf5'
+    pytest ../src
 }
 
