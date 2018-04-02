@@ -1,10 +1,10 @@
 environment:
   global:
     PROJECT_SPEC: "digital_rf==2.6.0b1"
+    PACKAGE_NAME: "digital_rf"
     NP_BUILD_DEP: "numpy==1.10.4"
-    NP_TEST_DEP: "numpy==1.10.4"
     OTHER_BUILD_DEP: "pkgconfig setuptools wheel"
-    OTHER_TEST_DEP: "pytest"
+    TEST_DEP: "pytest"
     HDF5_VERSION: "1.8.17"
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
@@ -29,13 +29,11 @@ environment:
     #   HDF5_VSVERSION: "14"
     #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
     #   NP_BUILD_DEP: "numpy==1.12"
-    #   NP_TEST_DEP: "numpy==1.12"
     #
     # - PYTHON: "C:\\Python36-x64"
     #   HDF5_VSVERSION: "14-64"
     #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
     #   NP_BUILD_DEP: "numpy==1.12"
-    #   NP_TEST_DEP: "numpy==1.12"
 
 
 matrix:
@@ -82,10 +80,10 @@ test_script:
     - virtualenv --python %PYTHON%\Python.exe test_env
     - test_env\Scripts\activate.bat
     - where python
-    - python -m pip install %NP_TEST_DEP% %OTHER_TEST_DEP%
+    - python -m pip install %TEST_DEP%
 
     # install from wheel
-    - python -m pip install .\wheelhouse\*
+    - pwsh: python -m pip install .\wheelhouse\*.whl
 
     # run the tests
     - pytest src
