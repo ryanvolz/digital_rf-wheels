@@ -70,6 +70,8 @@ function build_osx_wheel {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
+    # do our own install_wheel to pass -U flag to upgrade packages (i.e. numpy)
+    install_wheel -U
     pytest ../src
 }
 
