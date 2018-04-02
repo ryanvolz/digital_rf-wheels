@@ -86,7 +86,7 @@ test_script:
     - pwsh: ls wheelhouse\*.whl | % { pip install $_ }
 
     # run the tests
-    - pytest src
+    - pytest --tb=short --maxfail=10 src
 
 artifacts:
     - path: "wheelhouse\\*"
