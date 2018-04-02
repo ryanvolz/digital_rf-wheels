@@ -6,7 +6,7 @@ env:
         - BUILD_DEPENDS="pkgconfig setuptools wheel"
         # pip dependencies to _test_ your project, beyond the setup.py install
         # dependencies and potentially including specific versions
-        - NP_TEST_DEP=1.7.1
+        - NP_TEST_DEP=1.9.3
         - TEST_DEPENDS="pytest"
         # default platform (typically overridden in matrix)
         - PLAT=x86_64
