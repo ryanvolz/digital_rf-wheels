@@ -70,11 +70,11 @@ install:
 
 build_script:
     # Install the dependencies of the project.
-    - python -m pip install %NP_BUILD_DEP% %OTHER_BUILD_DEP%
+    - python -m pip install --upgrade %NP_BUILD_DEP% %OTHER_BUILD_DEP%
     # Build wheel
     - set HDF5_ROOT=%HDF5_DIR%
     - mkdir wheelhouse
-    - python -m pip wheel -w wheelhouse --no-deps src
+    - python -m pip wheel -w wheelhouse --no-deps ./src
 
 test_script:
     # create test env
