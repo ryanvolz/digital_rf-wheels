@@ -101,4 +101,4 @@ cache:
 on_success:
     # Upload wheels to PyPI
     - python -m pip install twine
-    - python -m twine upload src\dist\*
+    - python -m twine upload --skip-existing src\dist\*
