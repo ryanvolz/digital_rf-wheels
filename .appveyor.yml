@@ -83,7 +83,7 @@ test_script:
     - python -m pip install %TEST_DEP%
 
     # install from wheel
-    - pwsh: python -m pip install .\wheelhouse\*.whl
+    - pwsh: ls wheelhouse\*.whl | % { pip install $_ }
 
     # run the tests
     - pytest src
