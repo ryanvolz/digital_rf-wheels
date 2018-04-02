@@ -74,7 +74,8 @@ build_script:
     # Build wheel
     - set HDF5_ROOT=%HDF5_DIR%
     - mkdir wheelhouse
-    - python -m pip wheel -w wheelhouse --no-deps ./src
+    - python -m pip wheel -w wheelhouse --no-deps .\src
+    - dir wheelhouse
 
 test_script:
     # create test env
@@ -84,7 +85,7 @@ test_script:
     - python -m pip install %NP_TEST_DEP% %OTHER_TEST_DEP%
 
     # install from wheel
-    - python -m pip install wheelhouse\*.whl
+    - python -m pip install .\wheelhouse\*
 
     # run the tests
     - pytest src
