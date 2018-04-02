@@ -1,10 +1,9 @@
 environment:
   global:
     PROJECT_SPEC: "digital_rf==2.6.0b1"
-    PACKAGE_NAME: "digital_rf"
     NP_BUILD_DEP: "numpy==1.10.4"
     NP_TEST_DEP: "numpy==1.10.4"
-    OTHER_BUILD_DEP: "Cheetah pkgconfig setuptools"
+    OTHER_BUILD_DEP: "pkgconfig setuptools wheel"
     OTHER_TEST_DEP: "pytest"
     HDF5_VERSION: "1.8.17"
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
@@ -55,7 +54,7 @@ install:
     - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
 
     # make sure we have the newest package versions
-    - python -m pip install -U pip setuptools wheel
+    - python -m pip install -U pip
 
     # Check that we have the expected version and architecture for Python
     - python --version
@@ -71,12 +70,11 @@ install:
 
 build_script:
     # Install the dependencies of the project.
-    - python -m pip install %NP_BUILD_DEP% %OTHER_BUILD_DEPENDS%
+    - python -m pip install %NP_BUILD_DEP% %OTHER_BUILD_DEP%
     # Build wheel
-    - cd src
     - set HDF5_ROOT=%HDF5_DIR%
-    - python setup.py bdist_wheel
-    - cd ..
+    - mkdir wheelhouse
+    - python -m pip wheel -w wheelhouse --no-deps src
 
 test_script:
     # create test env
@@ -86,13 +84,13 @@ test_script:
     - python -m pip install %NP_TEST_DEP% %OTHER_TEST_DEP%
 
     # install from wheel
-    - python -m pip install --pre --no-index --find-links src\dist\ %PACKAGE_NAME%
+    - python -m pip install wheelhouse\*.whl
 
     # run the tests
-    - pytest
+    - pytest src
 
 artifacts:
-    - path: "src\\dist\\*"
+    - path: "wheelhouse\\*"
 
 cache:
     - "%LOCALAPPDATA%\\pip\\Cache"
@@ -101,4 +99,4 @@ cache:
 on_success:
     # Upload wheels to PyPI
     - python -m pip install twine
-    - python -m twine upload --skip-existing src\dist\*
+    - python -m twine upload --skip-existing wheelhouse\*
