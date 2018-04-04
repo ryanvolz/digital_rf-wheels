@@ -62,9 +62,10 @@ install:
     - git clone --depth 1 https://github.com/h5py/h5py.git h5py
 
     # install hdf5
-    - py -3.5 -m pip install --upgrade pip setuptools wheel
-    - py -3.5 -m pip install requests
-    - py -3.5 h5py\ci\appveyor\get_hdf5.py
+    - python -m pip install requests
+    - cd h5py
+    - python ci\appveyor\get_hdf5.py
+    - cd ..
 
 build_script:
     # Install the dependencies of the project.
@@ -78,7 +79,8 @@ build_script:
 test_script:
     # create test env
     - virtualenv --python %PYTHON%\Python.exe test_env
-    - call "test_env\Scripts\activate.bat"
+    - test_env\Scripts\activate
+    - echo %PATH%
     - where python
     - python -m pip install %TEST_DEP%
 
