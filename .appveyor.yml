@@ -62,9 +62,10 @@ install:
     - git clone --depth 1 https://github.com/h5py/h5py.git h5py
 
     # install hdf5
-    - python -m pip install requests
+    - py -3.5 -m pip install --upgrade pip setuptools wheel
+    - py -3.5 -m pip install requests
     - cd h5py
-    - python ci\appveyor\get_hdf5.py
+    - py -3.5 ci\appveyor\get_hdf5.py
     - cd ..
 
 build_script:
