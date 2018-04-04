@@ -72,13 +72,13 @@ build_script:
     # Build wheel
     - set HDF5_ROOT=%HDF5_DIR%
     - mkdir wheelhouse
-    - python -m pip wheel -w wheelhouse --no-deps .\src
+    - python -m pip wheel -v -w wheelhouse --no-deps .\src
     - dir wheelhouse
 
 test_script:
     # create test env
     - virtualenv --python %PYTHON%\Python.exe test_env
-    - test_env\Scripts\activate.bat
+    - call "test_env\Scripts\activate.bat"
     - where python
     - python -m pip install %TEST_DEP%
 
@@ -86,7 +86,7 @@ test_script:
     - pwsh: ls wheelhouse\*.whl | % { pip install $_ }
 
     # run the tests
-    - pytest --tb=short --maxfail=10 src
+    - pytest --maxfail=10 src
 
 artifacts:
     - path: "wheelhouse\\*"
