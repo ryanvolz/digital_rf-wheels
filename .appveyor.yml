@@ -1,6 +1,6 @@
 environment:
   global:
-    PROJECT_SPEC: "digital_rf==2.6.0b2"
+    PROJECT_SPEC: "digital_rf==2.6.0b3"
     PACKAGE_NAME: "digital_rf"
     HDF5_DEP: "hdf5=1.8.18"
     NUMPY_DEP: "numpy=1.8"
