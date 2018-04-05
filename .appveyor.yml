@@ -2,39 +2,36 @@ environment:
   global:
     PROJECT_SPEC: "digital_rf==2.6.0b2"
     PACKAGE_NAME: "digital_rf"
-    NP_BUILD_DEP: "numpy==1.10.4"
-    OTHER_BUILD_DEP: "pkgconfig setuptools wheel"
+    HDF5_DEP: "hdf5=1.8.18"
+    NUMPY_DEP: "numpy=1.8"
+    BUILD_DEP: "pkgconfig setuptools wheel"
     TEST_DEP: "pytest"
-    HDF5_VERSION: "1.8.17"
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
   matrix:
-    - PYTHON: "C:\\Python27"
-      HDF5_VSVERSION: "9"
-      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda"
+      CONDA_PY: "27"
+      PYTHON_VERSION: "2.7"
 
-    - PYTHON: "C:\\Python27-x64"
-      HDF5_VSVERSION: "9-64"
-      HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda-x64"
+      CONDA_PY: "27"
+      PYTHON_VERSION: "2.7"
 
-    # - PYTHON: "C:\\Python35"
-    #   HDF5_VSVERSION: "14"
-    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    # - CONDA_INSTALL_LOCN: "C:\\Miniconda35"
+    #   CONDA_PY: "35"
+    #   PYTHON_VERSION: "3.5"
     #
-    # - PYTHON: "C:\\Python35-x64"
-    #   HDF5_VSVERSION: "14-64"
-    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
+    # - CONDA_INSTALL_LOCN: "C:\\Miniconda35-x64"
+    #   CONDA_PY: "35"
+    #   PYTHON_VERSION: "3.5"
     #
-    # - PYTHON: "C:\\Python36"
-    #   HDF5_VSVERSION: "14"
-    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
-    #   NP_BUILD_DEP: "numpy==1.12"
+    # - CONDA_INSTALL_LOCN: "C:\\Miniconda36"
+    #   CONDA_PY: "36"
+    #   PYTHON_VERSION: "3.6"
     #
-    # - PYTHON: "C:\\Python36-x64"
-    #   HDF5_VSVERSION: "14-64"
-    #   HDF5_DIR: "C:\\hdf5\\%HDF5_VERSION%\\%HDF5_VSVERSION%"
-    #   NP_BUILD_DEP: "numpy==1.12"
-
+    # - CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
+    #   CONDA_PY: "36"
+    #   PYTHON_VERSION: "3.6"
 
 matrix:
     fast_finish: true
@@ -46,10 +43,20 @@ install:
     - mkdir src
     - for /d %%A in (arch_tmp\*) do (robocopy "%%A" src /MIR /NP) ^& IF %ERRORLEVEL% LEQ 3 exit /B 0
 
-    # Prepend Python to the PATH of this build (this cannot be
-    # done from inside the powershell script as it would require to restart
-    # the parent CMD process).
-    - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+    # set up build environment with conda
+    - set CPU_COUNT=2
+    - set PYTHONUNBUFFERED=1
+    - call "%CONDA_INSTALL_LOCN%\Scripts\activate.bat"
+    # update conda
+    - conda update --yes --quiet -n root conda
+    # add channels
+    - conda config --add channels conda-forge
+    - conda config --set auto_update_conda false
+    # needed for building extensions in python 2.7 x64 with cmake
+    - conda install --yes --quiet vs2008_express_vc_python_patch
+    - call setup_x64
+    # info for debugging
+    - conda info
 
     # make sure we have the newest package versions
     - python -m pip install -U pip
@@ -58,45 +65,31 @@ install:
     - python --version
     - python -c "import struct; print(struct.calcsize('P') * 8)"
 
-    # clone h5py to get some useful build scripts
-    - git clone --depth 1 https://github.com/h5py/h5py.git h5py
-
-    # install hdf5
-    - py -3.5 -m pip install --upgrade pip setuptools wheel
-    - py -3.5 -m pip install requests
-    - cd h5py
-    - py -3.5 ci\appveyor\get_hdf5.py
-    - cd ..
-
 build_script:
     # Install the dependencies of the project.
-    - python -m pip install --upgrade %NP_BUILD_DEP% %OTHER_BUILD_DEP%
+    - conda install --yes %HDF5_DEP% %NUMPY_DEP% %BUILD_DEP%
     # Build wheel
-    - set HDF5_ROOT=%HDF5_DIR%
-    - mkdir wheelhouse
+    - set HDF5_ROOT=%CONDA_PREFIX%\Library
+    # add required external libraries to wheel package using setup.py environment variable
+    - set DRF_PACKAGE_EXTERNAL_LIBS=%CONDA_PREFIX%\Library\bin\hdf5.dll;%CONDA_PREFIX%\Library\bin\zlib.dll
     - python -m pip wheel -v -w wheelhouse --no-deps .\src
     - dir wheelhouse
 
 test_script:
     # create test env
-    - virtualenv --python %PYTHON%\Python.exe test_env
-    - test_env\Scripts\activate
-    - echo %PATH%
+    - conda create --yes -n test_env python=%PYTHON_VERSION% %HDF5_DEP%
+    - activate test_env
     - where python
     - python -m pip install %TEST_DEP%
 
     # install from wheel
-    - pwsh: ls wheelhouse\*.whl | % { pip install $_ }
+    - pwsh: ls wheelhouse\*.whl | % { python -m pip install $_ }
 
     # run the tests
     - pytest --maxfail=10 src
 
 artifacts:
     - path: "wheelhouse\\*"
-
-cache:
-    - "%LOCALAPPDATA%\\pip\\Cache"
-    - "C:\\hdf5"
 
 on_success:
     # Upload wheels to PyPI
