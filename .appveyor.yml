@@ -4,6 +4,7 @@ environment:
     PACKAGE_NAME: "digital_rf"
     # need same HDF5 version that is bundled with h5py wheel
     HDF5_DEP: "hdf5=1.10.1"
+    H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.8"
     BUILD_DEP: "pkgconfig setuptools wheel"
     TEST_DEP: "pytest"
@@ -75,6 +76,8 @@ build_script:
     # (not necessary for now since h5py bundles hdf5.dll, since we require
     #  h5py it will use that version)
     #- set DRF_PACKAGE_EXTERNAL_LIBS=%CONDA_PREFIX%\Library\bin\hdf5.dll;%CONDA_PREFIX%\Library\bin\zlib.dll
+    # require the specific h5py version that we know works
+    - set DRF_H5PY_SPEC=%H5PY_DEP%
     - python -m pip wheel -v -w wheelhouse --no-deps .\src
     - dir wheelhouse
 
