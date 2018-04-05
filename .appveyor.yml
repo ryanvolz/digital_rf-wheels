@@ -2,7 +2,8 @@ environment:
   global:
     PROJECT_SPEC: "digital_rf==2.6.0b3"
     PACKAGE_NAME: "digital_rf"
-    HDF5_DEP: "hdf5=1.8.18"
+    # need same HDF5 version that is bundled with h5py wheel
+    HDF5_DEP: "hdf5=1.10.1"
     NUMPY_DEP: "numpy=1.8"
     BUILD_DEP: "pkgconfig setuptools wheel"
     TEST_DEP: "pytest"
@@ -71,13 +72,15 @@ build_script:
     # Build wheel
     - set HDF5_ROOT=%CONDA_PREFIX%\Library
     # add required external libraries to wheel package using setup.py environment variable
-    - set DRF_PACKAGE_EXTERNAL_LIBS=%CONDA_PREFIX%\Library\bin\hdf5.dll;%CONDA_PREFIX%\Library\bin\zlib.dll
+    # (not necessary for now since h5py bundles hdf5.dll, since we require
+    #  h5py it will use that version)
+    #- set DRF_PACKAGE_EXTERNAL_LIBS=%CONDA_PREFIX%\Library\bin\hdf5.dll;%CONDA_PREFIX%\Library\bin\zlib.dll
     - python -m pip wheel -v -w wheelhouse --no-deps .\src
     - dir wheelhouse
 
 test_script:
     # create test env
-    - conda create --yes -n test_env python=%PYTHON_VERSION% %HDF5_DEP%
+    - conda create --yes -n test_env python=%PYTHON_VERSION%
     - activate test_env
     - where python
     - python -m pip install %TEST_DEP%
