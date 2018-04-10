@@ -1,6 +1,6 @@
 environment:
   global:
-    PROJECT_SPEC: "digital_rf==2.6.0b3"
+    PROJECT_SPEC: "digital_rf==2.6.0b4"
     PACKAGE_NAME: "digital_rf"
     # need same HDF5 version that is bundled with h5py wheel
     HDF5_DEP: "hdf5=1.10.1"
