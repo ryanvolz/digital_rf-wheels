@@ -16,15 +16,11 @@ env:
 language: python
 # The travis Python version is unrelated to the version we build and test
 # with.  This is set with the MB_PYTHON_VERSION variable.
-python: 3.5
 sudo: required
 dist: trusty
 services: docker
 
 matrix:
-  exclude:
-    # Exclude the default Python build
-    - python: 3.5
   include:
     - os: linux
       env:
@@ -42,52 +38,38 @@ matrix:
         - MB_PYTHON_VERSION=2.7
         - PLAT=i686
         - UNICODE_WIDTH=16
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.4
-#        - NP_BUILD_DEP="1.7.1"
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.4
-#        - PLAT=i686
-#        - NP_BUILD_DEP="1.7.1"
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.5
-#        - NP_BUILD_DEP="1.9.3"
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.5
-#        - PLAT=i686
-#        - NP_BUILD_DEP="1.9.3"
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - NP_BUILD_DEP="1.11.3"
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - PLAT=i686
-#        - NP_BUILD_DEP="1.11.3"
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.5
+        - NP_BUILD_DEP="1.9.3"
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.5
+        - PLAT=i686
+        - NP_BUILD_DEP="1.9.3"
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - NP_BUILD_DEP="1.11.3"
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - PLAT=i686
+        - NP_BUILD_DEP="1.11.3"
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=2.7
-#    - os: osx
-#      language: generic
-#      env:
-#        - MB_PYTHON_VERSION=3.4
-#        - NP_BUILD_DEP="1.7.1"
-#    - os: osx
-#      language: generic
-#      env:
-#        - MB_PYTHON_VERSION=3.5
-#        - NP_BUILD_DEP="1.9.3"
-#    - os: osx
-#      language: generic
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - NP_BUILD_DEP="1.11.3"
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.5
+        - NP_BUILD_DEP="1.9.3"
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - NP_BUILD_DEP="1.11.3"
 
 before_install:
     - BUILD_DEPENDS="numpy==$NP_BUILD_DEP $BUILD_DEPENDS"
