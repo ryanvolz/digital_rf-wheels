@@ -91,5 +91,6 @@ script:
 
 after_success:
     # Upload wheels to PyPI
+    - python -m pip install --upgrade pyOpenSSL
     - python -m pip install twine
     - python -m twine upload --skip-existing $WHEEL_SDIR/*
