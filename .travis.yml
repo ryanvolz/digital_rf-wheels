@@ -1,6 +1,6 @@
 env:
     global:
-        - PROJECT_SPEC="digital_rf==2.6.0rc1"
+        - PROJECT_SPEC="digital_rf==2.6.0"
         # pip dependencies to _build_ your project
         - NP_BUILD_DEP="1.7.1"
         - BUILD_DEPENDS="pkgconfig setuptools wheel"
