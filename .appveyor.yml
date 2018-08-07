@@ -32,12 +32,22 @@ environment:
     - CONDA_INSTALL_LOCN: "C:\\Miniconda36"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
-      NUMPY_DEP: "numpy=1.11"
+      NUMPY_DEP: "numpy=1.9"
 
     - CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
-      NUMPY_DEP: "numpy=1.11"
+      NUMPY_DEP: "numpy=1.9"
+
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda37"
+      CONDA_PY: "37"
+      PYTHON_VERSION: "3.7"
+      NUMPY_DEP: "numpy=1.9"
+
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda37-x64"
+      CONDA_PY: "37"
+      PYTHON_VERSION: "3.7"
+      NUMPY_DEP: "numpy=1.9"
 
 matrix:
     fast_finish: true
