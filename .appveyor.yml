@@ -19,32 +19,32 @@ environment:
       CONDA_PY: "27"
       PYTHON_VERSION: "2.7"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda35"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "35"
       PYTHON_VERSION: "3.5"
       NUMPY_DEP: "numpy=1.9"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda35-x64"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "35"
       PYTHON_VERSION: "3.5"
       NUMPY_DEP: "numpy=1.9"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda36"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
       NUMPY_DEP: "numpy=1.9"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
       NUMPY_DEP: "numpy=1.9"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda36"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "37"
       PYTHON_VERSION: "3.7"
       NUMPY_DEP: "numpy=1.9"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda36-x64"
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "37"
       PYTHON_VERSION: "3.7"
       NUMPY_DEP: "numpy=1.9"
