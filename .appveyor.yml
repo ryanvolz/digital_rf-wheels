@@ -2,12 +2,14 @@ environment:
   global:
     PROJECT_SPEC: "digital_rf==2.6.1"
     PACKAGE_NAME: "digital_rf"
+    # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
     HDF5_DEP: "hdf5=1.10.1"
     H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.8"
     BUILD_DEP: "pkgconfig setuptools wheel"
-    TEST_DEP: "pytest=3"
+    # the following are installed with pip, use pip version spec
+    TEST_DEP: "pytest~=3"
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
   matrix:
