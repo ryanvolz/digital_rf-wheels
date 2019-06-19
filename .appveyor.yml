@@ -70,6 +70,10 @@ install:
     # add channels
     - conda config --add channels conda-forge
     - conda config --set auto_update_conda false
+
+    # create build environment
+    - conda create --yes -n build_env python=%PYTHON_VERSION%
+    - activate build_env
     # needed for building extensions in python 2.7 x64 with cmake
     - conda install --yes --quiet vs2008_express_vc_python_patch
     - call setup_x64
