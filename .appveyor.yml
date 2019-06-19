@@ -9,7 +9,7 @@ environment:
     NUMPY_DEP: "numpy=1.8"
     BUILD_DEP: "pkgconfig setuptools wheel"
     # the following are installed with pip, use pip version spec
-    TEST_DEP: "pytest~=3"
+    TEST_DEP: "pytest<4"
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
   matrix:
@@ -102,7 +102,7 @@ test_script:
     - conda create --yes -n test_env python=%PYTHON_VERSION%
     - activate test_env
     - where python
-    - python -m pip install %TEST_DEP%
+    - python -m pip install "%TEST_DEP%"
 
     # install from wheel
     - pwsh: ls wheelhouse\*.whl | % { python -m pip install $_ }
