@@ -6,7 +6,7 @@ env:
         - BUILD_DEPENDS="pkgconfig setuptools wheel"
         # pip dependencies to _test_ your project, beyond the setup.py install
         # dependencies and potentially including specific versions
-        - TEST_DEPENDS="pytest"
+        - TEST_DEPENDS="pytest<4"
         # default platform (typically overridden in matrix)
         - PLAT=x86_64
         # default unicode width (typically overridden in matrix)

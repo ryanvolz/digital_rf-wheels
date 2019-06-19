@@ -7,7 +7,7 @@ environment:
     H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.8"
     BUILD_DEP: "pkgconfig setuptools wheel"
-    TEST_DEP: "pytest"
+    TEST_DEP: "pytest<4"
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
   matrix:
