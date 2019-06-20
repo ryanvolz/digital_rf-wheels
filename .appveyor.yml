@@ -65,15 +65,15 @@ install:
     - set CPU_COUNT=2
     - set PYTHONUNBUFFERED=1
     - call "%CONDA_INSTALL_LOCN%\Scripts\activate.bat"
-    # update conda
-    - conda update --yes --quiet -n root conda
     # add channels
     - conda config --add channels conda-forge
     - conda config --set auto_update_conda false
 
     # create build environment
-    - conda create --yes -n build_env python=%PYTHON_VERSION%
-    - activate build_env
+    - conda create --yes -n build_env python=%PYTHON_VERSION% conda
+    - conda activate build_env
+    # update conda
+    - conda update --yes --quiet -n root conda
     # needed for building extensions in python 2.7 x64 with cmake
     - conda install --yes --quiet vs2008_express_vc_python_patch
     - call setup_x64
@@ -104,7 +104,7 @@ build_script:
 test_script:
     # create test env
     - conda create --yes -n test_env python=%PYTHON_VERSION%
-    - activate test_env
+    - conda activate test_env
     - where python
     - python -m pip install "%TEST_DEP%"
 
