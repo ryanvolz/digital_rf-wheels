@@ -6,7 +6,7 @@ environment:
     # need same HDF5 version that is bundled with h5py wheel
     HDF5_DEP: "hdf5=1.10.4"
     H5PY_DEP: "h5py>=2.7.1"
-    NUMPY_DEP: "numpy=1.8"
+    NUMPY_DEP: "numpy=1.9"
     BUILD_DEP: "pkgconfig setuptools wheel"
     # the following are installed with pip, use pip version spec
     TEST_DEP: "pytest"
@@ -24,32 +24,26 @@ environment:
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "35"
       PYTHON_VERSION: "3.5"
-      NUMPY_DEP: "numpy=1.9"
 
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "35"
       PYTHON_VERSION: "3.5"
-      NUMPY_DEP: "numpy=1.9"
 
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
-      NUMPY_DEP: "numpy=1.9"
 
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
-      NUMPY_DEP: "numpy=1.9"
 
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "37"
       PYTHON_VERSION: "3.7"
-      NUMPY_DEP: "numpy=1.9"
 
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "37"
       PYTHON_VERSION: "3.7"
-      NUMPY_DEP: "numpy=1.9"
 
 matrix:
     fast_finish: true
