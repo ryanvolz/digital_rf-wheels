@@ -1,11 +1,12 @@
 # Define utilities for before entering the build phase
 
 function fetch_unpack_index {
-    local project_spec=$1
+    local package_name=$1
+    local project_spec=$2
     [ -z "$project_spec" ] && echo "project_spec not defined" && exit 1
-    local source_dir=${2:-src}
+    local source_dir=${3:-src}
     rm_mkdir dl_tmp
-    pip download $(pip_opts) --no-deps --no-binary :all: -d dl_tmp $project_spec
+    pip download $(pip_opts) --no-deps --no-binary $package_name -d dl_tmp $project_spec
     local out_archive=$(abspath $(ls dl_tmp/*))
     mkdir -p $source_dir
     (cd $source_dir \
