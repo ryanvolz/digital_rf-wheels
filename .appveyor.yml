@@ -1,6 +1,6 @@
 environment:
   global:
-    PROJECT_SPEC: "digital_rf==2.6.4.1"
+    PROJECT_SPEC: "digital_rf==2.6.4.2"
     PACKAGE_NAME: "digital_rf"
     # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
