@@ -63,13 +63,14 @@ install:
     - call "%CONDA_INSTALL_LOCN%\Scripts\activate.bat"
     # add channels
     - conda config --add channels conda-forge
+    - conda config --set channel_priority strict
     - conda config --set auto_update_conda false
+    # update conda
+    - conda update --yes --quiet -n root conda
 
     # create build environment
     - conda create --yes -n build_env python=%PYTHON_VERSION% conda
     - conda activate build_env
-    # update conda
-    - conda update --yes --quiet -n root conda
     # needed for building extensions in python 2.7 x64 with cmake
     - conda install --yes --quiet vs2008_express_vc_python_patch
     - call setup_x64
