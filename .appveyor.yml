@@ -64,9 +64,8 @@ install:
     # add channels
     - conda config --add channels conda-forge
     - conda config --set channel_priority strict
-    - conda config --set auto_update_conda false
-    # update conda
-    - conda update --yes --quiet -n root conda
+    # update base environment
+    - conda update --yes --quiet --all
 
     # create build environment
     - conda create --yes -n build_env python=%PYTHON_VERSION% conda
