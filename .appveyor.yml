@@ -65,11 +65,10 @@ install:
     - conda update --yes --quiet --all
 
     # create build environment
-    - conda create -c conda-forge --strict-channel-priority --yes -n build_env python=%PYTHON_VERSION%
+    - conda create -c conda-forge --yes -n build_env python=%PYTHON_VERSION%
     - conda activate build_env
     # add conda-forge channel
     - conda config --env --add channels conda-forge
-    - conda config --env --set channel_priority strict
     # needed for building extensions in python 2.7 x64 with cmake
     - conda install --yes --quiet vs2008_express_vc_python_patch
     - call setup_x64
