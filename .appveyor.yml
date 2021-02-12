@@ -4,7 +4,7 @@ environment:
     PACKAGE_NAME: "digital_rf"
     # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
-    HDF5_DEP: "hdf5=1.10.4"
+    HDF5_DEP: "hdf5=1.12.0"
     H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.9"
     BUILD_DEP: "pkgconfig setuptools wheel"
@@ -13,14 +13,6 @@ environment:
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
   matrix:
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda"
-      CONDA_PY: "27"
-      PYTHON_VERSION: "2.7"
-
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda-x64"
-      CONDA_PY: "27"
-      PYTHON_VERSION: "2.7"
-
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
       CONDA_PY: "36"
       PYTHON_VERSION: "3.6"
@@ -46,6 +38,16 @@ environment:
       CONDA_PY: "38"
       PYTHON_VERSION: "3.8"
       NUMPY_DEP: "numpy=1.14"
+
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3"
+      CONDA_PY: "39"
+      PYTHON_VERSION: "3.9"
+      NUMPY_DEP: "numpy=1.19"
+
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
+      CONDA_PY: "39"
+      PYTHON_VERSION: "3.9"
+      NUMPY_DEP: "numpy=1.19"
 
 matrix:
     fast_finish: true
