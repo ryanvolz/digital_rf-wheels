@@ -11,11 +11,12 @@ function fetch_unpack_pypi_source {
     local source_url="https://pypi.io/packages/source/d/$package_name/$archive_name"
     rm_mkdir dl_tmp
     (cd dl_tmp && curl -O $source_url)
+    local out_archive=$(abspath $(ls dl_tmp/$archive_name))
     mkdir -p $source_dir
     (cd $source_dir \
         && rm_mkdir arch_tmp \
         && cd arch_tmp \
-        && untar $archive_name \
+        && untar $out_archive \
         && rsync --remove-source-files -avh */ .. \
         && cd .. \
         && rm -rf arch_tmp)
