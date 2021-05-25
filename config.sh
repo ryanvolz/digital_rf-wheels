@@ -11,7 +11,7 @@ function fetch_unpack_pypi_source {
     local source_url="https://pypi.io/packages/source/${package_name:0:1}/${package_name//_/-}/$archive_name"
     rm_mkdir dl_tmp
     echo $source_url
-    (cd dl_tmp && curl -O $source_url)
+    (cd dl_tmp && curl -L -O $source_url)
     local out_archive=$(abspath dl_tmp/$archive_name)
     echo $out_archive
     mkdir -p $source_dir
