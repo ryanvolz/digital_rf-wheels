@@ -12,7 +12,7 @@ function fetch_unpack_pypi_source {
     rm_mkdir dl_tmp
     echo $source_url
     (cd dl_tmp && curl -O $source_url)
-    local out_archive=$(abspath $archive_name)
+    local out_archive=$(abspath dl_tmp/$archive_name)
     echo $out_archive
     mkdir -p $source_dir
     (cd $source_dir \
