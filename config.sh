@@ -9,7 +9,7 @@ function fetch_unpack_index {
     [ -z "$project_spec" ] && echo "project_spec not defined" && exit 1
     local source_dir=${3:-$SRC_DIR}
     rm_mkdir dl_tmp
-    pip download $(pip_opts) --no-deps --no-binary $package_name -d dl_tmp $project_spec
+    $PIP_CMD download $(pip_opts) --no-deps --no-binary $package_name -d dl_tmp $project_spec
     local out_archive=$(abspath $(ls dl_tmp/$package_name*))
     mkdir -p $source_dir
     (cd $source_dir \
@@ -19,11 +19,6 @@ function fetch_unpack_index {
         && rsync --remove-source-files -avh */ .. \
         && cd .. \
         && rm -rf arch_tmp)
-}
-
-function pip_opts {
-    # Extra options for pip
-    echo "--verbose"
 }
 
 function pre_build {
