@@ -1,12 +1,11 @@
 # Define custom utilities
-
-function build_libs {
-    source multibuild/library_builders.sh
-    build_hdf5
-}
+# Test for OSX with [ -n "$IS_OSX" ]
 
 function pre_build {
-    build_libs
+    # Any stuff that you need to do before you start building the wheels
+    # Runs in the root directory of this repository.
+    source multibuild/library_builders.sh
+    build_hdf5
 }
 
 function run_tests {

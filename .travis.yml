@@ -3,26 +3,51 @@ env:
         - PROJECT_SPEC="digital_rf==2.6.6"
         - PACKAGE_NAME="digital_rf"
         # pip dependencies to _build_ your project
-        - NP_BUILD_DEP="1.7.1"
-        - BUILD_DEPENDS="pkgconfig setuptools wheel"
+        - BUILD_DEPENDS="oldest-supported-numpy pkgconfig setuptools wheel"
         # pip dependencies to _test_ your project, beyond the setup.py install
         # dependencies and potentially including specific versions
-        - TEST_DEPENDS="pytest"
+        - TEST_DEPENDS="oldest-supported-numpy pytest"
         # default platform (typically overridden in matrix)
         - PLAT=x86_64
         # default unicode width (typically overridden in matrix)
         - UNICODE_WIDTH=32
         # Note: TWINE_USERNAME and TWINE_PASSWORD are set in Travis settings
 
-language: python
-# The travis Python version is unrelated to the version we build and test
-# with.  This is set with the MB_PYTHON_VERSION variable.
-sudo: required
-dist: trusty
+language: generic
+dist: xenial
 services: docker
+# osx image that enables building Apple silicon libraries
+osx_image: xcode12.2
 
 matrix:
   include:
+    # add osx first into the queue as they have lower parallelism
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=2.7
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.6
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - MB_PYTHON_OSX_VER=10.6
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.7
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.8
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.9
+        - PLAT="universal2"
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.9
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=pypy-5.7
     - os: linux
       env:
         - MB_PYTHON_VERSION=2.7
@@ -42,47 +67,17 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP="1.11.3"
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP="1.14.6"
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
-        - NP_BUILD_DEP="1.17.5"
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.9
-        - NP_BUILD_DEP="1.19.5"
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=2.7
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP="1.11.3"
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - NP_BUILD_DEP="1.14.6"
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.8
-        - NP_BUILD_DEP="1.17.5"
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.9
-        - NP_BUILD_DEP="1.19.5"
 
 before_install:
-    - BUILD_DEPENDS="numpy==$NP_BUILD_DEP $BUILD_DEPENDS"
-    - TEST_DEPENDS="numpy==$NP_BUILD_DEP $TEST_DEPENDS"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
