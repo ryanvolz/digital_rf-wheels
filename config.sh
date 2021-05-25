@@ -10,8 +10,10 @@ function fetch_unpack_pypi_source {
     local archive_name="${package_name}-${package_version}.tar.gz"
     local source_url="https://pypi.io/packages/source/${package_name:0:1}/${package_name//_/-}/$archive_name"
     rm_mkdir dl_tmp
+    echo $source_url
     (cd dl_tmp && curl -O $source_url)
     local out_archive=$(abspath $archive_name)
+    echo $out_archive
     mkdir -p $source_dir
     (cd $source_dir \
         && rm_mkdir arch_tmp \
