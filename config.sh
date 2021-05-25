@@ -11,8 +11,6 @@ function pre_build {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
-    # upgrade numpy to most recent version (if build version is still around)
-    pip install -U numpy
     # test
     pytest ../src
 }
