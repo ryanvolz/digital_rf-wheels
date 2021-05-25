@@ -3,13 +3,12 @@
 
 SRC_DIR=src
 
-function fetch_unpack_index {
+function fetch_unpack_source {
     local package_name=$1
-    local project_spec=$2
-    [ -z "$project_spec" ] && echo "project_spec not defined" && exit 1
+    local source_url=$2
     local source_dir=${3:-$SRC_DIR}
     rm_mkdir dl_tmp
-    $PIP_CMD download $(pip_opts) --no-deps --no-binary $package_name -d dl_tmp $project_spec
+    (cd dl_tmp && curl -O $source_url)
     local out_archive=$(abspath $(ls dl_tmp/$package_name*))
     mkdir -p $source_dir
     (cd $source_dir \

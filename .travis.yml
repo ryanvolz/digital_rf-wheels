@@ -1,7 +1,8 @@
 env:
     global:
-        - PROJECT_SPEC="digital_rf==2.6.6"
         - PACKAGE_NAME="digital_rf"
+        - PACKAGE_VERSION="2.6.6"
+        - SRC_URL="https://pypi.io/packages/source/d/$PACKAGE_NAME/$PACKAGE_NAME-$PACKAGE_VERSION.tar.gz"
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="oldest-supported-numpy pkgconfig setuptools wheel"
         # pip dependencies to _test_ your project, beyond the setup.py install
@@ -59,7 +60,7 @@ before_install:
     - before_install
     # fetch and unpack source package
     - source config.sh
-    - fetch_unpack_index $PACKAGE_NAME $PROJECT_SPEC
+    - fetch_unpack_source $PACKAGE_NAME $SRC_URL
 
 install:
     - build_wheel $SRC_DIR
