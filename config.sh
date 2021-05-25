@@ -3,18 +3,19 @@
 
 SRC_DIR=src
 
-function fetch_unpack_source {
+function fetch_unpack_pypi_source {
     local package_name=$1
-    local source_url=$2
+    local package_version=$2
     local source_dir=${3:-$SRC_DIR}
+    local archive_name="${package_name}-${package_version}.tar.gz"
+    local source_url="https://pypi.io/packages/source/d/$package_name/$archive_name"
     rm_mkdir dl_tmp
     (cd dl_tmp && curl -O $source_url)
-    local out_archive=$(abspath $(ls dl_tmp/$package_name*))
     mkdir -p $source_dir
     (cd $source_dir \
         && rm_mkdir arch_tmp \
         && cd arch_tmp \
-        && untar $out_archive \
+        && untar $archive_name \
         && rsync --remove-source-files -avh */ .. \
         && cd .. \
         && rm -rf arch_tmp)
