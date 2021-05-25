@@ -10,7 +10,6 @@ env:
         # Note: TWINE_USERNAME and TWINE_PASSWORD are set in Travis settings
 
 language: generic
-dist: xenial
 services: docker
 # osx image that enables building Apple silicon libraries
 osx_image: xcode12.2
@@ -58,13 +57,12 @@ before_install:
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
+    # fetch and unpack source package
+    - source config.sh
+    - fetch_unpack_index $PACKAGE_NAME $PROJECT_SPEC
 
 install:
-    # fetch and unpack source package
-    - source prepare.sh
-    - fetch_unpack_index $PACKAGE_NAME $PROJECT_SPEC src
-    # build wheels
-    - build_wheel src
+    - build_wheel $SRC_DIR
     - ls $WHEEL_SDIR/*
 
 script:
