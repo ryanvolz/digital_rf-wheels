@@ -82,16 +82,13 @@ matrix:
 
 before_install:
     - BUILD_DEPENDS="numpy==$NP_BUILD_DEP $BUILD_DEPENDS"
+    - TEST_DEPENDS="numpy==$NP_BUILD_DEP $TEST_DEPENDS"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
 
 install:
-    # fetch and unpack source package
-    - source prepare.sh
-    - fetch_unpack_index $PACKAGE_NAME $PROJECT_SPEC src
-    # build wheels
-    - build_wheel src
+    - build_index_wheel $PROJECT_SPEC
     - ls $WHEEL_SDIR/*
 
 script:
