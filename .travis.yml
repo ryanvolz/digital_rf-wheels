@@ -60,7 +60,11 @@ before_install:
     - before_install
 
 install:
-    - build_index_wheel $PROJECT_SPEC
+    # fetch and unpack source package
+    - source prepare.sh
+    - fetch_unpack_index $PACKAGE_NAME $PROJECT_SPEC src
+    # build wheels
+    - build_wheel src
     - ls $WHEEL_SDIR/*
 
 script:
