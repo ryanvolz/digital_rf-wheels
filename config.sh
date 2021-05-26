@@ -28,13 +28,11 @@ function wheel_add_build_number {
     local package_name=$1
     local package_version=$2
     local wheel_dir=$3
-    local wheel_name=$4
-    local build_num=$5
+    local build_num=$4
     local package_name_version="${package_name}-${package_version}"
+    local wheel_name=$(cd "$wheel_dir"; ls ${package_name_version}*)
     local wheel_suffix="${wheel_name:${#package_name_version}}"
-    echo ${wheel_dir}
-    echo ${package_name_version}
-    echo ${build_num}
+    echo ${wheel_name}
     echo ${wheel_suffix}
     echo "${wheel_dir}/${package_name_version}-${build_num}${wheel_suffix}"
     if [ "$build_num" -ne "0" ]; then
