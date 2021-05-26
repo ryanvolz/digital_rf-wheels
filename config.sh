@@ -29,6 +29,7 @@ function pre_build {
     # Runs in the root directory of this repository.
     source multibuild/library_builders.sh
     build_hdf5
+    export CFLAGS="$CFLAGS '-std=c99'"
 }
 
 function run_tests {
