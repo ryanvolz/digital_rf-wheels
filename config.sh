@@ -26,7 +26,8 @@ function fetch_unpack_pypi_source {
 
 function pip_opts {
     # Extra options for pip
-    source multibuild/common_utils.sh
+    REPO_DIR=$(dirname "${BASH_SOURCE[0]}")
+    source $REPO_DIR/multibuild/common_utils.sh
     echo "--no-build-isolation $(pip_opts)"
 }
 
