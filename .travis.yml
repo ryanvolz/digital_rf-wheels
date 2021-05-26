@@ -11,8 +11,6 @@ env:
 
 language: generic
 services: docker
-# osx image that enables building Apple silicon libraries
-osx_image: xcode12.2
 
 matrix:
   include:
@@ -23,23 +21,18 @@ matrix:
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.7
-        - MB_PYTHON_OSX_VER=10.6
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.7
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.8
     - os: osx
+      # osx image that enables building Apple silicon libraries
+      osx_image: xcode12.2
       env:
         - MB_PYTHON_VERSION=3.9
         - PLAT="universal2"
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.9
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=pypy-5.7
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
