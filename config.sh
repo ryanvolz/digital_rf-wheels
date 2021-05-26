@@ -27,24 +27,25 @@ function fetch_unpack_pypi_source {
 function wheel_add_build_number {
     local package_name=$1
     local package_version=$2
-    local wheel_file=$3
-    local build_num=$4
-    local package_name_version=${package_name}-${package_version}
-    local wheel_dir="${wheel_file%/*}"
-    local wheel_name="${wheel_file##*/}"
+    local wheel_dir=$3
+    local wheel_name=$4
+    local build_num=$5
+    local package_name_version="${package_name}-${package_version}"
     local wheel_suffix="${wheel_name:${#package_name_version}}"
+    echo ${wheel_dir}
+    echo ${package_name_version}
+    echo ${build_num}
+    echo ${wheel_suffix}
     echo "${wheel_dir}/${package_name_version}-${build_num}${wheel_suffix}"
     if [ "$build_num" -ne "0" ]; then
         local new_path="${wheel_dir}/${package_name_version}-${build_num}${wheel_suffix}"
-        mv "$wheel_file" "$new_path"
+        mv "${wheel_dir}/${wheel_name}" "$new_path"
     fi
 }
 
 function pip_opts {
     # Extra options for pip
-    REPO_DIR=$(dirname "${BASH_SOURCE[0]}")
-    source $REPO_DIR/multibuild/common_utils.sh
-    echo "--no-build-isolation $(pip_opts)"
+    echo "--no-build-isolation"
 }
 
 function pre_build {

@@ -51,9 +51,10 @@ before_install:
 
 install:
     - build_wheel $SRC_DIR
-    - WHEEL_FILE=$(abspath $(ls "$WHEEL_SDIR/$PACKAGE_NAME-$PACKAGE_VERSION*"))
-    - echo $WHEEL_FILE
-    - wheel_add_build_number $PACKAGE_NAME $PACKAGE_VERSION $WHEEL_FILE $BUILD_NUMBER
+    - ls $WHEEL_SDIR/*
+    - WHEEL_NAME=$(abspath $(cd "$WHEEL_SDIR"; ls "${PACKAGE_NAME}-${PACKAGE_VERSION}*"))
+    - echo $WHEEL_NAME
+    - wheel_add_build_number $PACKAGE_NAME $PACKAGE_VERSION $WHEEL_SDIR $WHEEL_NAME $BUILD_NUMBER
 
 script:
     # run tests
