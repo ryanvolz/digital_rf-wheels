@@ -36,7 +36,7 @@ matrix:
 
 install:
     # fetch and unpack python sources
-    - "pip download --no-deps --no-binary %PACKAGE_NAME% -d dl_tmp %PROJECT_SPEC%"
+    - "python -m pip download --no-deps --no-binary %PACKAGE_NAME% -d dl_tmp %PROJECT_SPEC%"
     - 7z x dl_tmp\* -so | 7z x -si -ttar -oarch_tmp
     - mkdir src
     - for /d %%A in (arch_tmp\*) do (robocopy "%%A" src /MIR /NP) ^& IF %ERRORLEVEL% LEQ 3 exit /B 0
