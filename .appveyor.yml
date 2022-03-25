@@ -1,7 +1,7 @@
 environment:
   global:
-    PROJECT_SPEC: "digital_rf==2.6.7"
     PACKAGE_NAME: "digital_rf"
+    PACKAGE_VERSION: "2.6.7"
     BUILD_NUMBER: "1"
     # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
@@ -63,7 +63,7 @@ install:
     - python -c "import struct; print(struct.calcsize('P') * 8)"
 
     # fetch and unpack python sources
-    - "python -m pip download --no-deps --no-binary %PACKAGE_NAME% -d dl_tmp %PROJECT_SPEC%"
+    - "python -m pip download --no-deps --no-binary %PACKAGE_NAME% -d dl_tmp %PACKAGE_NAME%==%PACKAGE_VERSION%"
     - 7z x dl_tmp\* -so | 7z x -si -ttar -oarch_tmp
     - mkdir src
     - for /d %%A in (arch_tmp\*) do (robocopy "%%A" src /MIR /NP) ^& IF %ERRORLEVEL% LEQ 3 exit /B 0
@@ -80,7 +80,7 @@ build_script:
     # require the specific h5py version that we know works
     - set DRF_H5PY_SPEC=%H5PY_DEP%
     - python -m pip wheel -v -w wheelhouse --no-deps .\src
-    - if %BUILD_NUMBER% GTR 0 for %%G in ("wheelhouse\*.*") do ren "%%~G" "%%~nG-%BUILD_NUMBER%%%~xG"
+    - if %BUILD_NUMBER% GTR 0 for %%G in ("wheelhouse\*.*") do setlocal enabledelayedexpansion && set H=%%~nxG && ren "%%~G" "!H:%PACKAGE_VERSION%=%PACKAGE_VERSION%-%BUILD_NUMBER%!"
     - dir wheelhouse
 
 test_script:
