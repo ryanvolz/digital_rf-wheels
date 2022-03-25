@@ -2,9 +2,10 @@ environment:
   global:
     PROJECT_SPEC: "digital_rf==2.6.7"
     PACKAGE_NAME: "digital_rf"
+    BUILD_NUMBER: "1"
     # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
-    HDF5_DEP: "hdf5=1.12.0"
+    HDF5_DEP: "hdf5=1.12.1"
     H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.9"
     BUILD_DEP: "pkgconfig setuptools wheel"
@@ -13,10 +14,6 @@ environment:
     # Note: TWINE_USERNAME and TWINE_PASSWORD are set in AppVeyor settings
 
   matrix:
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
-      CONDA_PY: "36"
-      PYTHON_VERSION: "3.6"
-
     - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
       CONDA_PY: "37"
       PYTHON_VERSION: "3.7"
@@ -30,6 +27,11 @@ environment:
       CONDA_PY: "39"
       PYTHON_VERSION: "3.9"
       NUMPY_DEP: "numpy=1.19"
+
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
+      CONDA_PY: "39"
+      PYTHON_VERSION: "3.9"
+      NUMPY_DEP: "numpy=1.21"
 
 matrix:
     fast_finish: true
@@ -78,6 +80,7 @@ build_script:
     # require the specific h5py version that we know works
     - set DRF_H5PY_SPEC=%H5PY_DEP%
     - python -m pip wheel -v -w wheelhouse --no-deps .\src
+    - if %BUILD_NUMBER% GTR 0 for %%a in ("wheelhouse\*.*") do ren "%%~a" "%%~Na%-%BUILD_NUMBER%%%~Xa%"
     - dir wheelhouse
 
 test_script:
