@@ -80,7 +80,7 @@ build_script:
     # require the specific h5py version that we know works
     - set DRF_H5PY_SPEC=%H5PY_DEP%
     - python -m pip wheel -v -w wheelhouse --no-deps .\src
-    - if %BUILD_NUMBER% GTR 0 for %%a in ("wheelhouse\*.*") do ren "%%~a" "%%~Na%-%BUILD_NUMBER%%%~Xa%"
+    - if %BUILD_NUMBER% GTR 0 for %%G in ("wheelhouse\*.*") do ren "%%~G" "%%~dpnG-%BUILD_NUMBER%%%~xG"
     - dir wheelhouse
 
 test_script:
