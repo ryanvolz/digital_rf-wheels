@@ -2,6 +2,7 @@
 # Test for OSX with [ -n "$IS_OSX" ]
 
 SRC_DIR=src
+HDF5_VERSION="${1:-1.12.1}"
 
 function fetch_unpack_pypi_source {
     local package_name=$1

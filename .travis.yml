@@ -47,7 +47,7 @@ before_install:
     - source multibuild/travis_steps.sh
     - before_install
     # fetch and unpack source package
-    - source config.sh
+    - source config.sh $HDF5_VERSION
     - fetch_unpack_pypi_source $PACKAGE_NAME $PACKAGE_VERSION
 
 install:
