@@ -5,7 +5,7 @@ environment:
     BUILD_NUMBER: "0"
     # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
-    HDF5_DEP: "hdf5=1.12.2"
+    HDF5_DEP: "hdf5=1.12.2 zlib"
     H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.9"
     BUILD_DEP: "pkgconfig setuptools wheel"
