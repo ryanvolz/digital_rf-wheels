@@ -1,9 +1,9 @@
 env:
     global:
         - PACKAGE_NAME="digital_rf"
-        - PACKAGE_VERSION="2.6.7"
-        - BUILD_NUMBER="1"
-        - HDF5_VERSION="1.12.1"
+        - PACKAGE_VERSION="2.6.8"
+        - BUILD_NUMBER="0"
+        - HDF5_VERSION="1.12.2"
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="oldest-supported-numpy pkgconfig setuptools wheel"
         # pip dependencies to _test_ your project, beyond the setup.py install
@@ -29,6 +29,9 @@ matrix:
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.10
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.11
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
@@ -41,6 +44,9 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.10
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.11
 
 before_install:
     - source multibuild/common_utils.sh

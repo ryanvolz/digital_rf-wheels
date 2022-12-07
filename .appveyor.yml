@@ -1,11 +1,11 @@
 environment:
   global:
     PACKAGE_NAME: "digital_rf"
-    PACKAGE_VERSION: "2.6.7"
-    BUILD_NUMBER: "1"
+    PACKAGE_VERSION: "2.6.8"
+    BUILD_NUMBER: "0"
     # the following are installed with conda, use conda version spec
     # need same HDF5 version that is bundled with h5py wheel
-    HDF5_DEP: "hdf5=1.12.1"
+    HDF5_DEP: "hdf5=1.12.2"
     H5PY_DEP: "h5py>=2.7.1"
     NUMPY_DEP: "numpy=1.9"
     BUILD_DEP: "pkgconfig setuptools wheel"
@@ -32,6 +32,11 @@ environment:
       CONDA_PY: "310"
       PYTHON_VERSION: "3.10"
       NUMPY_DEP: "numpy=1.21"
+
+    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
+      CONDA_PY: "311"
+      PYTHON_VERSION: "3.11"
+      NUMPY_DEP: "numpy=1.23"
 
 matrix:
     fast_finish: true
