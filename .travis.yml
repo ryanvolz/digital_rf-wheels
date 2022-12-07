@@ -29,9 +29,6 @@ matrix:
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.10
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.11
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
@@ -44,9 +41,6 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.10
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.11
 
 before_install:
     - source multibuild/common_utils.sh
