@@ -33,10 +33,10 @@ environment:
       PYTHON_VERSION: "3.10"
       NUMPY_DEP: "numpy=1.21"
 
-    - CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
-      CONDA_PY: "311"
-      PYTHON_VERSION: "3.11"
-      NUMPY_DEP: "numpy=1.23"
+    #- CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
+      #CONDA_PY: "311"
+      #PYTHON_VERSION: "3.11"
+      #NUMPY_DEP: "numpy=1.23"
 
 matrix:
     fast_finish: true
