@@ -69,7 +69,8 @@ install:
 
     # fetch and unpack python sources
     - "python -m pip download --no-deps --no-binary %PACKAGE_NAME% -d dl_tmp %PACKAGE_NAME%==%PACKAGE_VERSION%"
-    - 7z x dl_tmp\* -so | 7z x -si -ttar -oarch_tmp
+    - mkdir arch_tmp
+    - tar -xf dl_tmp\* -C arch_tmp
     - mkdir src
     - for /d %%A in (arch_tmp\*) do (robocopy "%%A" src /MIR /NP) ^& IF %ERRORLEVEL% LEQ 3 exit /B 0
 
