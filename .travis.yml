@@ -1,7 +1,7 @@
 env:
     global:
         - PACKAGE_NAME="digital_rf"
-        - PACKAGE_VERSION="2.6.8"
+        - PACKAGE_VERSION="2.6.9"
         - BUILD_NUMBER="0"
         - HDF5_VERSION="1.12.2"
         # pip dependencies to _build_ your project
@@ -19,9 +19,6 @@ matrix:
     # add osx first into the queue as they have lower parallelism
     - os: osx
       env:
-        - MB_PYTHON_VERSION=3.7
-    - os: osx
-      env:
         - MB_PYTHON_VERSION=3.8
     - os: osx
       env:
@@ -29,9 +26,12 @@ matrix:
     - os: osx
       env:
         - MB_PYTHON_VERSION=3.10
-    - os: linux
+    - os: osx
       env:
-        - MB_PYTHON_VERSION=3.7
+        - MB_PYTHON_VERSION=3.11
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.12
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
@@ -41,6 +41,12 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.10
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.11
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.12
 
 before_install:
     - source multibuild/common_utils.sh
